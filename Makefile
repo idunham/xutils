@@ -1,3 +1,13 @@
+PREFIX ?= /usr
+BINDIR ?= $(PREFIX)/bin
+DOCDIR ?= $(PREFIX)/share/xutils
+MANDIR ?= $(PREFIX)/share/man
+
+#set this to $HOME for a local install
+#Debian uses /etc/X11/app-defaults
+#This does NOT respect PREFIX, since X does not search there.
+APPDEFDIR ?= /usr/lib/X11/app-defaults
+
 CPPFLAGS=-DHAVE_STRLCAT -DHAVE_WCHAR_H -DHAVE_WCTYPE_H
 LIBS=-lX11 -lXext -lXau -lXdmcp -lXaw -lXmu -lXt
 FONTUTIL= ucs2any bdftruncate bdftopcf
@@ -13,6 +23,17 @@ default: $(BINS) $(MAN)
 
 clean:
 	rm -f *.o $(BINS) $(MAN)
+
+install: $(BINS) $(MAN)
+	install -d $(DESTDIR)$(BINDIR)
+	for B in $(BINS); do install -m 0755 $$B $(DESTDIR)$(BINDIR); done
+	install -d $(DESTDIR)$(MANDIR)
+	for M in $(MAN); do install -m 0644 $$M $(DESTDIR)$(MANDIR); done
+	install -d $(DESTDIR)$(DOCDIR)
+	cp COPYING.* $(DESTDIR)$(DOCDIR)
+	install -d $(DESTDIR)$(APPDEFDIR)
+	cp app-defaults/* $(DESTDIR)$(APPDEFDIR)
+
 xlsfonts:
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $@.c dsimple.c clientwin.c $(LIBS)
 xprop:
