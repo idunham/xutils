@@ -1,0 +1,21 @@
+#include "XFontSel"
+
+*background:	gray85
+*foreground:	gray15
+
+*Command.highlightThickness:	2
+*Command.internalWidth:		5
+*Command.internalHeight:	3
+*Command.borderColor:		gray40
+*Command.background:		gray80
+*Command.displayList:\
+foreground	gray60;\
+lines		1,-1,-1,-1,-1,1;\
+foreground	gray90;\
+lines		-1,0,0,0,0,-1
+
+*Form.displayList:\
+foreground	gray60;\
+lines		1,-1,-1,-1,-1,1;\
+foreground	gray90;\
+lines		-1,0,0,0,0,-1
