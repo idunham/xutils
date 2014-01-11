@@ -2,3 +2,16 @@
 *.a
 *.swp
 *.log
+*.1
+xcalc
+xfontsel
+xkill
+xlsfonts
+xmessage
+xprop\nxwininfo
+ucs2any
+bdftopcf
+bdftruncate
+*~
+xprop
+xwininfo

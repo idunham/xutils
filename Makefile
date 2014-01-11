@@ -1,7 +1,11 @@
 CPPFLAGS=-DHAVE_STRLCAT -DHAVE_WCHAR_H -DHAVE_WCTYPE_H
 LIBS=-lX11 -lXext -lXau -lXdmcp -lXaw -lXmu -lXt
-BINS=xlsfonts xwininfo xprop xkill xfontsel xmessage
-MAN =man/xlsfonts.1 man/xwininfo.1 man/xprop.1 man/xkill.1 man/xfontsel.1 man/xmessage.1
+FONTUTIL= ucs2any bdftruncate bdftopcf
+BINS=xlsfonts xwininfo xprop xkill xfontsel xmessage xcalc $(FONTUTIL)
+MAN =man/xlsfonts.1 man/xwininfo.1 man/xprop.1 \
+ man/xkill.1 man/xfontsel.1 man/xmessage.1 \
+ man/xcalc.1 \
+ man/ucs2any.1 man/bdftruncate.1 man/bdftopcf.1
 
 .SUFFIXES: .c .o .man .1 .3 .7
 
@@ -28,3 +32,9 @@ xmessage:
 	-e 's|__appmansuffix__|1|g' -e 's|__libmansuffix__|3|g' \
 	-e 's|__adminmansuffix__|8|g' -e 's|__miscmansuffix__|7|g' -e 's|__filemansuffix__|5|g' \
 	< $< > $@
+xcalc:
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ actions.c math.c xcalc.c $(LDFLAGS) $(LIBS)
+fontutils: $(FONTUTIL)
+
+bdftopcf:
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $@.c $(LDFLAGS) -lXfont -lz
