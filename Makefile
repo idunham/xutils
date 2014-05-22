@@ -11,10 +11,10 @@ APPDEFDIR ?= /usr/lib/X11/app-defaults
 CPPFLAGS=-DHAVE_STRLCAT -DHAVE_WCHAR_H -DHAVE_WCTYPE_H
 LIBS=-lX11 -lXext -lXau -lXdmcp -lXaw -lXmu -lXt
 FONTUTIL= ucs2any bdftruncate bdftopcf
-BINS=xlsfonts xwininfo xprop xkill xfontsel xmessage xcalc $(FONTUTIL)
+BINS=xlsfonts xwininfo xprop xkill xfontsel xmessage xcalc xev $(FONTUTIL)
 MAN =man/xlsfonts.1 man/xwininfo.1 man/xprop.1 \
  man/xkill.1 man/xfontsel.1 man/xmessage.1 \
- man/xcalc.1 \
+ man/xcalc.1 man/xev.1 \
  man/ucs2any.1 man/bdftruncate.1 man/bdftopcf.1
 
 .SUFFIXES: .c .o .man .1 .3 .7
@@ -38,6 +38,8 @@ xlsfonts:
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $@.c dsimple.c clientwin.c $(LIBS)
 xprop:
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $@.c dsimple.c clientwin.c $(LIBS)
+xev:
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $@.c $(LIBS)
 xkill:
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $@.c $(LIBS)
 xfontsel:
